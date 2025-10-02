@@ -319,7 +319,6 @@ class MergeLinears(ReversibleTransformation):
         fully_qualified_parent_name = linear_nodes[0].target.rsplit(".", maxsplit=1)[0]
         parent_module = graph_module.get_submodule(fully_qualified_parent_name)
         parent_module.add_module(merged_linear_name, merged_linear)
-        # for name in linear_module_names:
         for linear_node in linear_nodes:
             mod, name = MergeLinears._linear_node_to_module_and_attribute_name(graph_module, linear_node.target)
             delattr(mod, name)
@@ -363,9 +362,6 @@ class MergeLinears(ReversibleTransformation):
             for out_feat in out_features
         ]
 
-        # fully_qualified_parent_name = merged_linear_node.target.rsplit(".", maxsplit=1)[0]
-        # parent_module = graph_module.get_submodule(fully_qualified_parent_name)
-        # parent_module_name = merged_linear_node.target.rsplit(".", maxsplit=1)[0]
         for target, node, linear in zip(linear_node_targets, output_nodes, linears):
             with torch.no_grad():
                 slice_to_get = node.args[1][1]
